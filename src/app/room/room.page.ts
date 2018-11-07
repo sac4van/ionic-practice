@@ -32,6 +32,10 @@ export class RoomPage implements OnInit {
       }
     });
   }
+  
+  addRoom() {
+    this.navCtrl.navigateForward('add-room');
+  }
 
   joinRoom(key) {
     this.navCtrl.navigateRoot('chat/' + key);

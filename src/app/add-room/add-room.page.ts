@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import * as firebase from 'Firebase';
+
 
 @Component({
   selector: 'app-add-room',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddRoomPage implements OnInit {
 
-  constructor() { }
+  data: { roomname: string } = { roomname: '' };
+
+  constructor(public navCtrl: NavController) { }
+
 
   ngOnInit() {
   }
+
+  addRoom() {
+    const newData = firebase.database().ref('chatrooms/')
+    .push({
+      roomname: this.data.roomname
+    });
+    this.navCtrl.navigateBack('room');
+  }
+
 
 }

@@ -1,3 +1,5 @@
+import { NavController, AlertController } from '@ionic/angular';
+import * as firebase from 'firebase';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupPage implements OnInit {
 
-  constructor() { }
+  data: { email: string, password: string } = { email: '', password: '' };
+
+  constructor(
+    public navCtrl: NavController,
+    public alertController: AlertController) { }
 
   ngOnInit() {
+  }
+
+  async signUp() {
+    try {
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.data.email, this.data.password);
+
+      this.navCtrl.navigateRoot('room');
+
+    } catch (error) {
+      const alert = await this.alertController.create({
+        header: '警告',
+        message: error.message,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
   }
 
 }

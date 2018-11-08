@@ -2,6 +2,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignupPage } from './signup.page';
+import { NavController, AlertController } from '@ionic/angular';
+import { NavControllerMock, AlertControllerMock } from '../../../test-config/mocks-ionic';
 
 describe('SignupPage', () => {
   let component: SignupPage;
@@ -11,6 +13,16 @@ describe('SignupPage', () => {
     TestBed.configureTestingModule({
       declarations: [ SignupPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [
+        {
+          provide: NavController,
+          useClass: NavControllerMock
+        },
+        {
+          provide: AlertController,
+          useClass: AlertControllerMock
+        }
+      ]
     })
     .compileComponents();
   }));

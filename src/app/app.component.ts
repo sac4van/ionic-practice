@@ -27,6 +27,8 @@ export class AppComponent {
       this.splashScreen.hide();
     });
 
-    firebase.initializeApp(environment.config);
+    if(!firebase.apps.length) {
+      firebase.initializeApp(environment.config);
+    }
   }
 }
